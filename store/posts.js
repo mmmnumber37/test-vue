@@ -22,7 +22,6 @@ export const actions = {
   },
 
   async setLike({ commit, dispatch }, data) {
-    console.log('asdf - asdf', [data])
     await this.$axios.$patch(`/posts/${data.id}`, {
       isLike: data.isLike,
       like: data.like,

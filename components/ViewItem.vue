@@ -49,14 +49,6 @@ export default {
 
   methods: {
     toggleLike() {
-      console.log('asdf - ', [
-        {
-          id: this.item.id,
-          isLike: !this.item.isLike,
-          like: this.item.isLike ? this.like-- : this.like++,
-          t: this.like,
-        },
-      ])
       this.$emit('toggle-like', {
         id: this.item.id,
         isLike: !this.item.isLike,
@@ -116,6 +108,7 @@ export default {
       width: 15px;
       display: flex;
       align-items: center;
+      cursor: pointer;
 
       &_color_red {
         fill: red;
