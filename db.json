@@ -80,5 +80,57 @@
       "like": 0,
       "id": 14
     }
+  ],
+  "markers": [
+    {
+      "id": 1,
+      "name": "Холестерин",
+      "description": "Холестерин",
+      "category": "cholesterol"
+    },
+    {
+      "id": 3,
+      "name": "другая категория",
+      "description": "другая категория",
+      "category": "chol"
+    },
+    {
+      "id": 2,
+      "name": "Холестерин 2",
+      "description": "Холестерин 2",
+      "category": "cholesterol"
+    }
+  ],
+  "historyMarker": [
+    {
+      "id": 1,
+      "parentId": 1,
+      "date": "2021-05-01",
+      "value": 441
+    },
+    {
+      "id": 2,
+      "parentId": 1,
+      "date": "2021-05-01",
+      "value": 442
+    },
+    {
+      "id": 3,
+      "parentId": 1,
+      "date": "2021-05-01",
+      "value": 443
+    }
+  ],
+  "category": [
+    {
+      "id": 1,
+      "category": "chol",
+      "name": "другая категория"
+    },
+    {
+      "id": 2,
+      "category": "cholesterol",
+      "name": "Холестерин"
+    }
   ]
 }

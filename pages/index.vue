@@ -1,224 +1,132 @@
 <template>
-  <div>
-    <div class="row align-items-center">
-      <b-form-group label="Сортировать:" class="col-3">
-        <b-form-select
-          v-model="selectedSort"
-          :options="optionsSort"
-          @input="changeSort"
-        />
-      </b-form-group>
+  <main>
+    <nuxt-link :to="'/one'">First Test_</nuxt-link>
 
-      <b-form-group label="Дата:" class="col-3">
-        <b-form-datepicker v-model="selectedDate" @input="changeDate" />
-      </b-form-group>
-
-      <div class="col">
-        <b-button variant="primary" @click="resetFilter">
-          Сбросить фильтр
-        </b-button>
-
-        <b-button variant="primary" @click="addItem">Добавить</b-button>
-      </div>
-    </div>
-
-    <div class="row align-items-stretch">
-      <view-item
-        v-for="(item, index) in posts"
-        :key="index"
-        :item="item"
-        class="col-xl-3 p-2"
-        @toggle-like="toggleLike"
-        @edit-item="editItem(item)"
-        @remove-item="removeItem(item)"
-      />
-    </div>
-
-    <div class="row">
-      <pagination
-        v-model="currentPage"
-        :records="countPosts"
-        :per-page="perPage"
-        @paginate="changePage"
-      />
-      <!-- Почемуто не изменяется при вычислении totalRows -->
-      <!-- <b-pagination v-model="currentPage" :total-rows="totalRows" /> -->
-    </div>
-
-    <modal-item
-      id="modal"
-      :item="editingItem"
-      :loading="loadModal"
-      @send="sendItem"
-    />
-  </div>
+    <nuxt-link :to="'/two'">Second Test_</nuxt-link>
+  </main>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import ViewItem from '@/components/ViewItem'
-import ModalItem from '@/components/ModalItem'
-
-export default {
-  components: {
-    ViewItem,
-    ModalItem,
-  },
-
-  data() {
-    return {
-      optionsSort: [
-        { value: 'id', text: 'Выберите сортировку' },
-        { value: 'like', text: 'По полулярности' },
-      ],
-      selectedSort: 'id',
-      selectedDate: null,
-      currentPage: 1,
-      perPage: 4,
-      editingItem: {},
-      loadModal: false,
-    }
-  },
-
-  computed: {
-    ...mapGetters({
-      posts: 'posts/posts',
-      countPosts: 'posts/count',
-    }),
-
-    // totalRows() {
-    //   return Math.ceil(this.countPosts / this.perPage)
-    // },
-  },
-
-  async mounted() {
-    try {
-      await this.getPosts()
-    } catch (error) {
-      console.error('getPosts', [error])
-    }
-  },
-
-  methods: {
-    ...mapActions({
-      getPosts: 'posts/getPosts',
-      setLike: 'posts/setLike',
-      createPost: 'posts/createPost',
-      updatePost: 'posts/updatePost',
-      removePost: 'posts/removePost',
-    }),
-
-    async toggleLike(data) {
-      try {
-        await this.setLike(data)
-        await this.getPosts({
-          sort: this.selectedSort,
-          filters: { date: this.selectedDate },
-          page: this.currentPage,
-        })
-      } catch (error) {
-        console.error('toggleLike', [error])
-      }
-    },
-
-    async changeSort(event) {
-      try {
-        await this.getPosts({
-          sort: event,
-          filters: { date: this.selectedDate },
-          page: this.currentPage,
-        })
-      } catch (error) {
-        console.error('changeSort', [error])
-      }
-    },
-
-    async changeDate(event) {
-      try {
-        await this.getPosts({
-          sort: this.selectedSort,
-          filters: { date: event },
-          page: this.currentPage,
-        })
-      } catch (error) {
-        console.error('changeDate', [error])
-      }
-    },
-
-    async resetFilter() {
-      try {
-        await this.getPosts({
-          sort: this.selectedSort,
-          filters: {},
-          page: this.currentPage,
-        })
-
-        this.selectedDate = null
-      } catch (error) {
-        console.error('resetFilter', [error])
-      }
-    },
-
-    async changePage() {
-      try {
-        await this.getPosts({
-          sort: this.selectedSort,
-          filters: { date: this.selectedDate },
-          page: this.currentPage,
-        })
-      } catch (error) {
-        console.error('changePage', [error])
-      }
-    },
-
-    addItem() {
-      this.editingItem = {}
-      this.$bvModal.show('modal')
-    },
-
-    editItem(data) {
-      this.editingItem = { ...data }
-      this.$bvModal.show('modal')
-    },
-
-    async removeItem(data) {
-      try {
-        await this.removePost(data.id)
-
-        await this.getPosts({
-          sort: this.selectedSort,
-          filters: { date: this.selectedDate },
-          page: this.currentPage,
-        })
-      } catch (error) {
-        console.error('removeItem', [error])
-      }
-    },
-
-    async sendItem(data) {
-      this.loadModal = true
-      try {
-        if (this.editingItem?.id) {
-          await this.updatePost({ data, id: this.editingItem?.id })
-        } else {
-          await this.createPost(data)
-        }
-
-        await this.getPosts({
-          sort: this.selectedSort,
-          filters: { date: this.selectedDate },
-          page: this.currentPage,
-        })
-
-        this.$bvModal.hide('modal')
-      } catch (error) {
-        console.error('sendItem', [error])
-      }
-
-      this.loadModal = false
-    },
-  },
-}
+export default {}
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+@font-face {
+  font-family: Cyber;
+  src: url('https://assets.codepen.io/605876/Blender-Pro-Bold.otf');
+  font-display: swap;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: 'Cyber', sans-serif !important;
+  background: linear-gradient(90deg, #f5ed00 70%, #e6de00 70%), #fff700;
+}
+
+a {
+  margin-top: 2rem;
+  text-align: center;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+a,
+a::after {
+  width: 380px;
+  height: 86px;
+  font-size: 36px;
+  font-family: 'Cyber', cursive;
+  background: linear-gradient(45deg, transparent 5%, #ff013c 5%);
+  border: 0;
+  color: #fff;
+  letter-spacing: 3px;
+  line-height: 88px;
+  box-shadow: 6px 0px 0px #00e6f6;
+  outline: transparent;
+  position: relative;
+}
+
+a::after {
+  --slice-0: inset(50% 50% 50% 50%);
+  --slice-1: inset(80% -6px 0 0);
+  --slice-2: inset(50% -6px 30% 0);
+  --slice-3: inset(10% -6px 85% 0);
+  --slice-4: inset(40% -6px 43% 0);
+  --slice-5: inset(80% -6px 5% 0);
+
+  content: ' ';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 3%,
+    #00e6f6 3%,
+    #00e6f6 5%,
+    #ff013c 5%
+  );
+  text-shadow: -3px -3px 0px #f8f005, 3px 3px 0px #00e6f6;
+  clip-path: var(--slice-0);
+}
+
+a:hover::after {
+  animation: 1s glitch;
+  animation-timing-function: steps(2, end);
+}
+
+@keyframes glitch {
+  0% {
+    clip-path: var(--slice-1);
+    transform: translate(-20px, -10px);
+  }
+  10% {
+    clip-path: var(--slice-3);
+    transform: translate(10px, 10px);
+  }
+  20% {
+    clip-path: var(--slice-1);
+    transform: translate(-10px, 10px);
+  }
+  30% {
+    clip-path: var(--slice-3);
+    transform: translate(0px, 5px);
+  }
+  40% {
+    clip-path: var(--slice-2);
+    transform: translate(-5px, 0px);
+  }
+  50% {
+    clip-path: var(--slice-3);
+    transform: translate(5px, 0px);
+  }
+  60% {
+    clip-path: var(--slice-4);
+    transform: translate(5px, 10px);
+  }
+  70% {
+    clip-path: var(--slice-2);
+    transform: translate(-10px, 10px);
+  }
+  80% {
+    clip-path: var(--slice-5);
+    transform: translate(20px, -10px);
+  }
+  90% {
+    clip-path: var(--slice-1);
+    transform: translate(-10px, 0px);
+  }
+  100% {
+    clip-path: var(--slice-1);
+    transform: translate(0);
+  }
+}
+</style>

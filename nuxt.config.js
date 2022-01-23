@@ -17,13 +17,14 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ['vue-multiselect/dist/vue-multiselect.min.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~plugins/vue-moment',
     '~plugins/vue-pagination',
     '~plugins/vuelidate',
+    '~plugins/vue-multiselect',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -50,7 +51,11 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    splitChunks: {
+      layouts: true,
+    },
+  },
 
   server: {
     port: 3001, // default: 3000

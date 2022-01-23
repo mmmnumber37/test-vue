@@ -57,9 +57,9 @@
           spinner-variant="primary"
           class="d-flex justify-content-end col"
         >
-          <b-button :disabled="loading" variant="primary" @click="send">
+          <b-btn :disabled="loading" variant="primary" @click="send">
             Сохранить
-          </b-button>
+          </b-btn>
         </b-overlay>
       </div>
     </b-modal>
