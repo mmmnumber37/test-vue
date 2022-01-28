@@ -150,3 +150,95 @@ a:hover {
   border-radius: 6px;
   background: #fff;
 }
+.list-name {
+  line-height: 1.2;
+  color: #2c2c4b;
+  color: var(--body-text-color);
+}
+.marker-syn {
+  color: #2c2c4b;
+  color: var(--body-text-color);
+}
+.marker-syn {
+  font-size: 0.76rem;
+}
+.list-date {
+  font-size: 0.66rem;
+  color: #939ca6;
+  color: var(--firm-mid-grey);
+}
+.text-8 {
+  font-size: 0.8rem !important;
+}
+.reference-line {
+  background-color: #3a9a59;
+  height: 2px;
+}
+.reference {
+  margin-top: 25px;
+  position: relative;
+}
+.ref-point {
+  width: 6px;
+  height: 6px;
+  position: absolute;
+  border-radius: 5px;
+  background: red;
+  top: -2px;
+  z-index: 100;
+}
+.ref-from,
+.ref-to {
+  position: absolute;
+  top: -4px;
+  text-align: center;
+  height: 50px;
+}
+.ref-from {
+  left: 15%;
+}
+.ref-to {
+  left: 80%;
+}
+.marker {
+  width: 4px;
+  height: 10px;
+  max-height: 10px;
+  background: #c2c464;
+  border: 1px solid var(--firm-white);
+}
+.value {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: 0.04em;
+  color: #888;
+  margin-left: -2px;
+}
+.ref-from-val,
+.ref-to-val {
+  position: absolute;
+  top: 10px;
+  text-align: center;
+  height: 50px;
+}
+.ref-from-val {
+  left: 15%;
+}
+.ref-to-val {
+  left: 80%;
+}
+.reference-line {
+  height: 2px;
+  background: linear-gradient(
+    90.01deg,
+    #f68c6b 3.51%,
+    #f7cf6b 13.47%,
+    #2ea44f 27.7%,
+    #6fb984 74.66%,
+    #f6cf6b 85.1%,
+    #f68c6b 94.58%
+  );
+  border-radius: 8px;
+}

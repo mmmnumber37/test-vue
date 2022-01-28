@@ -3,28 +3,11 @@
     <div class="col-12 col-lg-9">
       <div class="box py-1 px-3">
         <div class="mt-0">
-          <div>
-            <div>
-              <div class="list-header d-flex align-items-center mb-0">
-                {{ title }}
-              </div>
-              <template v-if="radio === 2">
-                <ItemMarker
-                  v-for="(item, index) in compMarkers"
-                  :key="index"
-                  :data="item"
-                />
-              </template>
-
-              <template v-else>
-                <ItemMarker
-                  v-for="(item, index) in compMarkers"
-                  :key="index"
-                  :data="item"
-                />
-              </template>
-            </div>
-          </div>
+          <BlockMarkers
+            v-for="(item, index) in compMarkers"
+            :key="index"
+            :data="item"
+          />
         </div>
       </div>
     </div>
@@ -41,9 +24,9 @@
             />
           </b-form-group>
 
-          <div class="sidebar-divider"></div>
-
           <template v-if="radio === 1">
+            <div class="sidebar-divider"></div>
+
             <b-form-group label="Фильтры">
               <c-multiselect
                 v-model="select"
@@ -54,22 +37,15 @@
             </b-form-group>
 
             <div class="sidebar-divider"></div>
-          </template>
 
-          <div>
-            <div>
-              <button
-                class="btn btn-outline-dark btn-block"
-                @click="select = null"
-              >
-                <div class="d-flex justify-content-center align-items-center">
-                  <div class="d-flex align-items-center">
-                    <div class="d-flex align-items-center">Очистить</div>
-                  </div>
-                </div>
-              </button>
-            </div>
-          </div>
+            <b-button
+              class="btn-block"
+              variant="outline-dark"
+              @click="select = null"
+            >
+              Очистить
+            </b-button>
+          </template>
         </div>
       </div>
     </div>
@@ -78,11 +54,10 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import ItemMarker from '@/components/ItemMarker'
-import { groupBy } from 'lodash'
+import BlockMarkers from '@/components/BlockMarkers'
 
 export default {
-  components: { ItemMarker },
+  components: { BlockMarkers },
 
   layout: 'two',
   data() {
@@ -104,21 +79,46 @@ export default {
       category: 'markers/category',
     }),
 
-    title() {
-      return (
-        this.radioList.find((i) => i.value === this.radio)?.text || 'Список'
-      )
-    },
-
     compMarkers() {
-      if (this.radio === 1 && this.select) {
-        return this.markers.filter((i) => i.category === this.select.category)
-      } else if (this.radio === 2) {
-        return groupBy(this.markers, 'category')
-      }
+      switch (this.radio) {
+        case 1:
+          return [
+            {
+              title: 'Cписок',
+              markers: this.select
+                ? this.markers.filter(
+                    (i) => i.category === this.select.category
+                  )
+                : this.markers,
+            },
+          ]
+        case 2:
+          return this.category.map((cat) => ({
+            title: cat.name,
+            markers: this.markers.filter(
+              (mark) => cat.category === mark.category
+            ),
+          }))
 
-      // TODO: по Анализы не очень понятно что это, толи количество толи
-      return this.markers
+        case 3:
+          // будем думать что на бек добавляет дату в маркеры
+          return Object.values(
+            this.markers.reduce((acc, item) => {
+              // подругому eslint ругается
+              if (!Object.prototype.hasOwnProperty.call(acc, item.date)) {
+                acc[item.date] = {
+                  title: this.$moment(item.date).format('DD MMM YYYY'),
+                  markers: [],
+                }
+              }
+              acc[item.date].markers.push(item)
+
+              return acc
+            }, {})
+          )
+        default:
+          return this.markers
+      }
     },
   },
 
@@ -127,7 +127,7 @@ export default {
       await this.getMarkers()
       await this.getCategory()
     } catch (error) {
-      console.error('', [error])
+      console.error(error)
     }
   },
 

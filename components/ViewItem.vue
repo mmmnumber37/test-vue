@@ -47,7 +47,7 @@
 
       <div class="d-flex justify-content-between">
         <div class="item__date">
-          {{ item.date | moment('DD MMMM YYYY') }}
+          {{ $moment(item.date).format('DD MMMM YYYY') }}
         </div>
         <div class="item__like">
           <div

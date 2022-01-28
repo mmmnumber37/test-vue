@@ -1,14 +1,22 @@
 import Vue from 'vue'
+import { sortBy } from 'lodash'
 
 export const state = () => ({
   markers: [],
   category: [],
+  historyMarker: [],
+  marker: {},
   // count: 0,
 })
 
 export const getters = {
   markers: (state) => state.markers,
   category: (state) => state.category,
+  historyMarker: (state) => {
+    // в теории это желательно делать на беке
+    return sortBy(state.historyMarker, (i) => i.date).reverse()
+  },
+  marker: (state) => state.marker,
 
   // count: (state) => state.count,
 }
@@ -19,6 +27,12 @@ export const mutations = {
   },
   SET_CATEGORY(state, value) {
     Vue.set(state, 'category', value || [])
+  },
+  SET_HISTORY_MARKER(state, value) {
+    Vue.set(state, 'historyMarker', value || [])
+  },
+  SET_MARKER(state, value) {
+    Vue.set(state, 'marker', value || {})
   },
 
   // SET_COUNT_POSTS(state, value) {
@@ -35,6 +49,20 @@ export const actions = {
   async getCategory({ commit }) {
     const result = await this.$axios.get(`/category`)
     commit('SET_CATEGORY', result.data)
+    return result
+  },
+  async getHistoryMarker({ commit }, idMarker) {
+    const result = await this.$axios.get(`/historyMarker`, {
+      params: { parentId: idMarker },
+    })
+    commit('SET_HISTORY_MARKER', result.data)
+    return result
+  },
+  async getMarker({ commit }, idMarker) {
+    const result = await this.$axios.get(`/markers`, {
+      params: { id: idMarker },
+    })
+    commit('SET_MARKER', result.data?.[0])
     return result
   },
 
