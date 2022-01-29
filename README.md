@@ -1,24 +1,17 @@
 # test-vue
 
-## Build Setup
+## Здесь собраны тестовые задания, основаные на nuxt.js и vue 2
+
+## Для проверки и просмотра заданий
 
 ```bash
-# install dependencies
-$ yarn install
+# install
+$ yarn
 
-# serve with hot reload at localhost:3000
+# server with hot reload at localhost:3000
+$ yarn server
+
+# serve with hot reload at localhost:3001
 $ yarn dev
 
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
-
-# install and start API
-$ npm install -g json-server
-$ json-server --watch db.json
 ```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
