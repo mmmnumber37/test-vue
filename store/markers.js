@@ -6,7 +6,6 @@ export const state = () => ({
   category: [],
   historyMarker: [],
   marker: {},
-  // count: 0,
 })
 
 export const getters = {
@@ -17,8 +16,6 @@ export const getters = {
     return sortBy(state.historyMarker, (i) => i.date).reverse()
   },
   marker: (state) => state.marker,
-
-  // count: (state) => state.count,
 }
 
 export const mutations = {
@@ -34,10 +31,6 @@ export const mutations = {
   SET_MARKER(state, value) {
     Vue.set(state, 'marker', value || {})
   },
-
-  // SET_COUNT_POSTS(state, value) {
-  //   Vue.set(state, 'count', Number(value) || 0)
-  // },
 }
 
 export const actions = {
@@ -65,20 +58,7 @@ export const actions = {
     commit('SET_MARKER', result.data?.[0])
     return result
   },
-
-  // async setLike({ commit }, data) {
-  //   return await this.$axios.$patch(`/posts/${data.id}`, {
-  //     isLike: data.isLike,
-  //     like: data.like,
-  //   })
-  // },
-  // async createPost({ commit }, data) {
-  //   return await this.$axios.$post(`/posts/`, data)
-  // },
-  // async updatePost({ commit }, { data, id }) {
-  //   return await this.$axios.$patch(`/posts/${id}`, data)
-  // },
-  // async removePost({ commit }, id) {
-  //   return await this.$axios.$delete(`/posts/${id}`)
-  // },
+  async createHistoryMarker({ commit }, data) {
+    return await this.$axios.post(`/historyMarker`, data)
+  },
 }

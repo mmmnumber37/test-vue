@@ -48,26 +48,12 @@ export default {
   methods: {
     setPositionPoint() {
       if (this.value < this.min) {
-        return '98%'
+        return '3%'
       } else if (this.value >= this.min && this.value <= this.max) {
-        console.log('asdf - asdfsadf', [
-          this.value,
-          this.max,
-          this.max / 65,
-          `${
-            (65 / (this.max + this.invertNumber(this.min))) * this.value + 15
-          }%`,
-        ])
-        return `${
-          (65 / (this.max + this.invertNumber(this.min))) * this.value + 15
-        }%`
+        return `${(65 / (this.max + this.min * -1)) * this.value + 15}%`
       } else if (this.value > this.min) {
-        return '2%'
+        return '94%'
       }
-    },
-
-    invertNumber(num) {
-      return num !== 0 ? num * -1 : num
     },
   },
 }

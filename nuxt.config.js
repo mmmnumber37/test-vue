@@ -24,6 +24,7 @@ export default {
     '~plugins/vue-pagination',
     '~plugins/vuelidate',
     '~plugins/vue-multiselect',
+    '~plugins/vue2-datepicker',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

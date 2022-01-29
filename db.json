@@ -134,6 +134,18 @@
       "parentId": 3,
       "date": "2021-05-01",
       "value": 443
+    },
+    {
+      "parentId": "1",
+      "date": "2022-01-01",
+      "value": "123",
+      "id": 6
+    },
+    {
+      "parentId": 1,
+      "date": "2023-01-01",
+      "value": "3",
+      "id": 7
     }
   ],
   "category": [
